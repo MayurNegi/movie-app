@@ -2,6 +2,7 @@ import React from "react";
 import { data } from "../data";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
+import { addMovies } from "../actions/index";
 
 class App extends React.Component {
   componentDidMount() {
@@ -12,16 +13,16 @@ class App extends React.Component {
       this.forceUpdate();
     });
 
-    store.dispatch({
-      type: "ADD_MOVIES",
-      movies: data,
-    });
+    // make api call
+    //dispatch action
+    store.dispatch(addMovies(data));
+    // after dispatch the subscribe function is called immediately
     console.log(store.getState());
   }
 
   render() {
-    const { store } = this.props.store.getState();
-    console.log("RENDER");
+    const { list } = this.props.store.getState(); // {list: [] , favourites: []}
+    console.log("RENDER", this.props.store.getState());
     return (
       <div className="App">
         <Navbar />
@@ -32,7 +33,7 @@ class App extends React.Component {
           </div>
 
           <div className="list">
-            {data.map((movie, index) => (
+            {list.map((movie, index) => (
               <MovieCard movie={movie} key={`movies-${index}`} />
             ))}
           </div>
