@@ -15,10 +15,20 @@ class App extends React.Component {
 
     // make api call
     //dispatch action
-    store.dispatch(addMovies(data));
+    store.dispatch(addMovies(data)); // dispatch takes action as argument
     // after dispatch the subscribe function is called immediately
     console.log(store.getState());
   }
+
+  isMovieFavourite = (movie) => {
+    const { favourites } = this.props.store.getState();
+    const index = favourites.indexOf(movie);
+
+    if (index != -1) {
+      return true;
+    }
+    return false;
+  };
 
   render() {
     const { list } = this.props.store.getState(); // {list: [] , favourites: []}
@@ -34,7 +44,12 @@ class App extends React.Component {
 
           <div className="list">
             {list.map((movie, index) => (
-              <MovieCard movie={movie} key={`movies-${index}`} />
+              <MovieCard
+                movie={movie}
+                key={`movies-${index}`}
+                dispatch={this.props.store.dispatch}
+                isFavourite={this.isMovieFavourite(movie)}
+              />
             ))}
           </div>
         </div>
