@@ -4,9 +4,9 @@ import { createStore } from "redux";
 
 import "./index.css";
 import App from "./components/App";
-import rootReducer from "./reducers";
+import rootReducers from "./reducers";
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducers);
 
 // console.log("store", store);
 // console.log("before state", store.getState());
