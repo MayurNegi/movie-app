@@ -13,14 +13,8 @@ const initialMovieState = {
 };
 
 // add movies function
-export default function movies(state = initialMovieState, action) {
-  // if (action.type === ADD_MOVIES) {
-  //   return {
-  //     ...state,
-  //     list: action.movies,
-  //   };
-  // }
-  // return state;
+export function movies(state = initialMovieState, action) {
+  console.log("MOVIES REDUCER");
 
   switch (action.type) {
     case ADD_MOVIES:
@@ -54,4 +48,23 @@ export default function movies(state = initialMovieState, action) {
     default:
       return state;
   }
+}
+
+const initialSearchState = {
+  result: {},
+};
+export function search(state = initialSearchState, action) {
+  console.log("SEARCH REDUCER");
+  return state;
+}
+
+const initialRootState = {
+  movies: initialMovieState,
+  search: initialSearchState,
+};
+export default function rootReducer(state = initialRootState, action) {
+  return {
+    movies: movies(state.movies, action),
+    search: search(state.search, action),
+  };
 }
