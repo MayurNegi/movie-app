@@ -37,7 +37,6 @@ export function movies(state = initialMovieState, action) {
       const filteredArray = state.favourites.filter(
         (movie) => movie.Title !== action.movie.Title
       );
-
       return {
         ...state,
         favourites: filteredArray,
@@ -88,6 +87,7 @@ const initialRootState = {
   movies: initialMovieState,
   search: initialSearchState,
 };
+
 // export default function rootReducer(state = initialRootState, action) {
 //   return {
 //     movies: movies(state.movies, action),

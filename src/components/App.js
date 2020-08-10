@@ -3,6 +3,7 @@ import { data } from "../data";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 import { addMovies, setShowFavourites } from "../actions/index";
+import { StoreContext } from "..";
 
 class App extends React.Component {
   componentDidMount() {
@@ -44,7 +45,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <Navbar dispatch={this.props.store.dispatch} search={search} />
+        <Navbar search={search} />
         <div className="main">
           <div className="tabs">
             <div
@@ -80,4 +81,17 @@ class App extends React.Component {
   }
 }
 
-export default App;
+class AppWrapper extends React.Component {
+  render() {
+    return (
+      <StoreContext.Consumer>
+        {/* Consumer can only be used inside render and expects a callback with arg as value sent by provider */}
+        {/* As consumer can only be called inside render so we make an appwraper over app component so that 
+        store can also be used in ComponentDidMount */}
+        {(store) => <App store={store} />}
+      </StoreContext.Consumer>
+    );
+  }
+}
+
+export default AppWrapper;
